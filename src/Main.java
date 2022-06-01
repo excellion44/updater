@@ -13,7 +13,7 @@ public class Main {
     {
         try
         {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(10);
         }
         catch (InterruptedException e)
         {
@@ -46,7 +46,7 @@ public class Main {
         t.start();*/
 
         //ShowMessage - c Вариантами кнопок YES - NO
-        int selectedOption = JOptionPane.showConfirmDialog(null, "Запустить обновление ?", "Выберите вариант", JOptionPane.YES_NO_OPTION);
+        int selectedOption = JOptionPane.showConfirmDialog(null, "Доступна новая версия программы \n Запустить обновление ?", "Выберите вариант", JOptionPane.YES_NO_OPTION);
         if (selectedOption == JOptionPane.YES_OPTION)
         {
             System.out.print("111");
