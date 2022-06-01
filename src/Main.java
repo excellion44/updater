@@ -2,6 +2,7 @@ import javafx.application.Application;
 
 import javax.swing.*;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -19,8 +20,21 @@ public class Main {
         {
             e.printStackTrace();
         }
-        try (BufferedInputStream inputStream = new BufferedInputStream(new URL("http://adm-sharya.ru/munpasport.pdf").openStream());
-             FileOutputStream fileOS = new FileOutputStream("C:/munpasport.pdf"))
+
+
+        //удаляем старое ядро
+        File file = new File(System.getProperty("user.dir")+"\\lib\\spark-core.jar");
+        File file2 = new File(System.getProperty("user.dir")+"\\lib\\spark-core-3.0.0-beta.jar");
+        file2.delete();
+        if(file.delete())
+            System.out.println("файл удален");
+        else
+            System.out.println("не обнаружено");
+
+
+        //Скачиваем новое ядро
+        try (BufferedInputStream inputStream = new BufferedInputStream(new URL("http://adm-sharya.ru/ichat/spark-core.jar").openStream());
+             FileOutputStream fileOS = new FileOutputStream(System.getProperty("user.dir")+"\\lib\\spark-core.jar"))
         {
 
             byte data[] = new byte[1024];
@@ -32,7 +46,7 @@ public class Main {
         }
         catch (IOException e)
         {
-            System.out.print("Нет доступа к сайту - "+e.getMessage());
+            System.out.print(e.getMessage());
             return;
         }
 
@@ -46,10 +60,17 @@ public class Main {
         t.start();*/
 
         //ShowMessage - c Вариантами кнопок YES - NO
-        int selectedOption = JOptionPane.showConfirmDialog(null, "Доступна новая версия программы \n Запустить обновление ?", "Выберите вариант", JOptionPane.YES_NO_OPTION);
+        int selectedOption = JOptionPane.showConfirmDialog(null, "iChat Успешно обновлен \n Запустить чат ?", System.getProperty("user.dir"), JOptionPane.YES_NO_OPTION);
         if (selectedOption == JOptionPane.YES_OPTION)
         {
-            System.out.print("111");
+            try
+            {
+                Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\spark.exe");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
 
     }
